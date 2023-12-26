@@ -126,6 +126,7 @@ cyan="#7dcfff"
 white="#a9b1d6"
 gray="#414868"
 
+hc set frame_border_width 0
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
 
