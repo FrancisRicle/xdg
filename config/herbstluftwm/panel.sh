@@ -52,7 +52,6 @@ tags_block(){
   done
   echo "$tags^p()"
 }
-tags_block
 while true; do 
   echo $(time_block) $(tags_block)
   sleep 1s 
