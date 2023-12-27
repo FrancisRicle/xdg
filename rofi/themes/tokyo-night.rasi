@@ -1,0 +1,98 @@
+configuration {
+  modes: [ window, drun, run, filebrowser ];
+  drun {
+    display-name: "";
+  }
+  run {
+    display-name: "";
+  }
+  window {
+    display-name: "";
+  }
+  filebrowser {
+    display-name: "::";
+  }
+}
+
+*{
+  bg:#1a1b26;
+  fg:#c0caf5;
+  bga:#33467c;
+  black:#15161e;
+  red:#f7768e;
+  green:#9ece6a;
+  yellow:#e0af68;
+  blue:#7aa2f7;
+  magenta:#bb9af7;
+  cyan:#7dcfff;
+  white:#a9b1d6;
+  gray:#414868;
+
+  background-color: @bg;
+  text-color: @fg;
+  font: "Mononoki Nerd Font 12";
+  border-radius: 15px;
+}
+entry {
+  placeholder: "Do ";
+  vertical-align: 1;
+}
+window {
+  transparency: "real";
+  width: 700px;
+}
+mainbox {
+	children: [inputbar, message, listview, mode-switcher];
+	spacing: 10px;
+	padding: 10px;
+}
+inputbar {
+  children: [prompt, entry];
+}
+prompt {
+  padding: 0px 10px 0px 10px;
+}
+element {
+  orientation: horizontal;
+  highlight: bold;
+  children: [element-icon, element-text];
+  spacing: 10px;
+  padding: 3px;
+}
+element normal {
+  background-color: @bg;
+  text-color: @fg;
+}
+element selected {
+  background-color: @bga;
+  text-color: @fg;
+}
+element-text, element-icon {
+	background-color: inherit;
+	text-color: inherit;
+	foreground-color:inherit;
+}
+element-text {
+  vertical-align: 0.5;
+}
+element-icon {
+  size: 2em;
+}
+listview {
+  scrollbar: true;
+  spacing: 10px;
+}
+mode-switcher {
+  spacing: 10px;
+  width: 5em;
+}
+button {
+  background-color: @cyan;
+  text-color: @black;
+  border-radius: 10px;
+}
+button selected{
+  background-color: @green;
+  text-color: @black;
+  border-radius: 8px;
+}
