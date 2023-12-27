@@ -5,11 +5,11 @@ connInt=$(connmanctl technologies | grep "Connected = True" -B 3 | grep "Name" |
 
 
 # ICONS
-leftSep="$HOME/.local/share/icons/bitmaps/22/left_sep.xbm"
-rightSep="$HOME/.local/share/icons/bitmaps/22/right_sep.xbm"
-leftSepAlt="$HOME/.local/share/icons/bitmaps/22/left_sep_alt.xbm"
-rightSepAlt="$HOME/.local/share/icons/bitmaps/22/right_sep_alt.xbm"
-eth="$HOME/.local/share/icons/bitmaps/22/eth.xbm"
+leftSep="$XDG_DATA_HOME/icons/bitmaps/22/left_sep.xbm"
+rightSep="$XDG_DATA_HOME/icons/bitmaps/22/right_sep.xbm"
+leftSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/left_sep_alt.xbm"
+rightSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/right_sep_alt.xbm"
+eth="$XDG_DATA_HOME/icons/bitmaps/22/eth.xbm"
 
 # THEME
 bg="#1a1b26"

@@ -1,5 +1,10 @@
 # /usr/bin/bash
-XDG_HOME_CONFIG="$HOME/.config/"
-for i in `ls`; do
-  cp -r $i $XDG_HOME_CONFIG 
+XDG_CONFIG_HOME="$HOME/.config/"
+XDG_DATA_HOME="$HOME/.local/share"
+for i in `ls config`; do
+  cp -r $i $XDG_CONFIG_HOME 
 done
+for i in `ls data`; do
+  cp -r $i $XDG_DATA_HOME 
+done
+
