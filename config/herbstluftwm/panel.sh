@@ -29,35 +29,23 @@ font="Terminess Nerd Font:style=bold"
 
 maxWidth=$(herbstclient get_attr monitors.0.geometry | awk -Fx '{print $1}')
 dateBlockWidth=390
-
+tagsBlockWidth=410
 # BLOCK
 time_block(){
-  align=`expr $maxWidth / 2 - $dateBlockWidth / 2`
+  align=$((($maxWidth - $tagsBlockWidth) / 2 - ($dateBlockWidth/ 2))) 
   timeCmd=`date +'%a %d/%m/%Y %H:%M'`
-  echo "^p(348)^fg($red)^i($leftSep)^bg($red)^fg($black)$timeCmd^fg($red)^bg()^i($rightSep)^fg()^p()"
+  echo "^p($align)^fg($red)^i($leftSep)^bg($red)^fg($black)$timeCmd^fg($red)^bg()^i($rightSep)^fg()^p()"
 }
 tags_block(){
   lastTag=$(expr $(herbstclient attr tags.count ) - 1) 
   for i in `seq 0 $lastTag` ;do
     clientCount=`herbstclient attr tags.$i.client_count`
     tagName=`herbstclient attr tags.$i.name`
-    if [ $clientCount -gt 0 ] && [ $i -gt 0 ] && [ $i -lt $lastTag ]; then 
-      tags="$tags^fg($green)^i($leftSepAlt)^bg($green)^fg($black)$tagName"
-    elif [ $clientCount -gt 0 ] && [ $i -gt 0 ] ; then
-      tags="$tags^fg($green)^bg($cyan)^i($leftSepAlt)^bg($green)^fg($black)$tagName^fg($green)^bg()^i($rightSep)"
-    elif [ $clientCount -gt 0 ]; then
-      tags="$tags^bg($green)^fg($black) $tagName"
-    elif [ $i -eq $lastTag ]; then
-      tags="$tags^fg($cyan)^i($leftSepAlt)^bg($cyan)^fg($black)$tagName^fg($cyan)^bg()^i($rightSep)"
-    elif [ $i -eq 0 ]; then
-      tags="$tags^bg($cyan)^fg($black) $tagName"
-    else
-      tags="$tags^fg($cyan)^i($leftSepAlt)^bg($cyan)^fg($black)$tagName^fg($cyan)"
-    fi
+    focus=`herbstclient attr tags.focus.index`
+    tags="$tags$(echo "$i;$tagName;$clientCount;$focus;$cyan;$green;$bg;$rightSep" | $XDG_CONFIG_HOME/herbstluftwm/tags_panel.py)"
   done
   echo "$tags^fg()^bg()"
 }
 while true; do 
   echo "$(tags_block)$(time_block)"
-  sleep 1s 
 done | dzen2 -p -h 22 -bg $bg -fg $fg -fn "$font" -ta l
