@@ -10,6 +10,7 @@ rightSep="$XDG_DATA_HOME/icons/bitmaps/22/right_sep.xbm"
 leftSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/left_sep_alt.xbm"
 rightSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/right_sep_alt.xbm"
 eth="$XDG_DATA_HOME/icons/bitmaps/22/eth.xbm"
+powerBtn="$XDG_DATA_HOME/icons/bitmaps/22/power_btn.xbm"
 
 # THEME
 bg="#1a1b26"
@@ -27,32 +28,36 @@ gray="#414868"
 font="Terminess Nerd Font:style=bold"
 
 maxWidth=$(herbstclient get_attr monitors.0.geometry | awk -Fx '{print $1}')
+dateBlockWidth=390
 
 # BLOCK
-full_block(){
-  echo "^fg($1)^i($leftSep)^bg($1)^fg($2)$3^fg($1)^bg()^i($rightSep)^fg()"
-}
-left_block(){
-  echo "^bg($1)^fg($2)$3^bg()^fg($1)^i($rightSep)^fg()"
-}
-right_block(){
-  echo "^p(+1920)^fg($1)^i($leftSep)^bg($1)^fg($2)$3^fg($1)^bg()^i($rightSep)^fg()^p()"
-}
 time_block(){
-  full_block $red $black "$(date +'%a %d/%m/%Y %H:%M')"
+  align=`expr $maxWidth / 2 - $dateBlockWidth / 2`
+  timeCmd=`date +'%a %d/%m/%Y %H:%M'`
+  echo "^p(348)^fg($red)^i($leftSep)^bg($red)^fg($black)$timeCmd^fg($red)^bg()^i($rightSep)^fg()^p()"
 }
 tags_block(){
-#  tags="^p(-$(expr $maxWidth / 2))"
-  tags="^p(-1900)"
   lastTag=$(expr $(herbstclient attr tags.count ) - 1) 
-  for i in {0..8} ;do
-    if [ $(herbstclient attr tags.$i.client_count) -gt 0  ]; then
-      tags=" $tags - $i "
+  for i in `seq 0 $lastTag` ;do
+    clientCount=`herbstclient attr tags.$i.client_count`
+    tagName=`herbstclient attr tags.$i.name`
+    if [ $clientCount -gt 0 ] && [ $i -gt 0 ] && [ $i -lt $lastTag ]; then 
+      tags="$tags^fg($green)^i($leftSepAlt)^bg($green)^fg($black)$tagName"
+    elif [ $clientCount -gt 0 ] && [ $i -gt 0 ] ; then
+      tags="$tags^fg($green)^bg($cyan)^i($leftSepAlt)^bg($green)^fg($black)$tagName^fg($green)^bg()^i($rightSep)"
+    elif [ $clientCount -gt 0 ]; then
+      tags="$tags^bg($green)^fg($black) $tagName"
+    elif [ $i -eq $lastTag ]; then
+      tags="$tags^fg($cyan)^i($leftSepAlt)^bg($cyan)^fg($black)$tagName^fg($cyan)^bg()^i($rightSep)"
+    elif [ $i -eq 0 ]; then
+      tags="$tags^bg($cyan)^fg($black) $tagName"
+    else
+      tags="$tags^fg($cyan)^i($leftSepAlt)^bg($cyan)^fg($black)$tagName^fg($cyan)"
     fi
   done
-  echo "$tags^p()"
+  echo "$tags^fg()^bg()"
 }
 while true; do 
-  echo $(time_block) $(tags_block)
+  echo "$(tags_block)$(time_block)"
   sleep 1s 
-done | dzen2 -p -h 22 -bg $bg -fg $fg -ta c
+done | dzen2 -p -h 22 -bg $bg -fg $fg -fn "$font" -ta l
