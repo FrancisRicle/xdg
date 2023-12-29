@@ -5,8 +5,9 @@ connInt=$(connmanctl technologies | grep "Connected = True" -B 3 | grep "Name" |
 
 
 # ICONS
-leftSep="$XDG_DATA_HOME/icons/bitmaps/22/left_sep.xbm"
-rightSep="$XDG_DATA_HOME/icons/bitmaps/22/right_sep.xbm"
+leftSep="$XDG_DATA_HOME/icons/bitmaps/22/left_cir.xbm"
+rightSep="$XDG_DATA_HOME/icons/bitmaps/22/right_cir.xbm"
+sepInt="$XDG_DATA_HOME/icons/bitmaps/22/sep_int.xbm"
 leftSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/left_sep_alt.xbm"
 rightSepAlt="$XDG_DATA_HOME/icons/bitmaps/22/right_sep_alt.xbm"
 eth="$XDG_DATA_HOME/icons/bitmaps/22/eth.xbm"
@@ -33,8 +34,8 @@ tagsBlockWidth=410
 # BLOCK
 time_block(){
   align=$((($maxWidth - $tagsBlockWidth) / 2 - ($dateBlockWidth/ 2))) 
-  timeCmd=`date +'%a %d/%m/%Y %H:%M'`
-  echo "^p($align)^fg($red)^i($leftSep)^bg($red)^fg($black)$timeCmd^fg($red)^bg()^i($rightSep)^fg()^p()"
+  timeCmd=`date +'%a %d de %b %H:%M'`
+  echo "^p($align)^fg($red)^i($leftSep)^bg($bg)^fg($red)$timeCmd^fg($bg)^bg()^i($rightSep)^fg()^p()"
 }
 tags_block(){
   lastTag=$(expr $(herbstclient attr tags.count ) - 1) 
@@ -42,10 +43,10 @@ tags_block(){
     clientCount=`herbstclient attr tags.$i.client_count`
     tagName=`herbstclient attr tags.$i.name`
     focus=`herbstclient attr tags.focus.index`
-    tags="$tags$(echo "$i;$tagName;$clientCount;$focus;$cyan;$green;$bg;$rightSep" | $XDG_CONFIG_HOME/herbstluftwm/tags_panel.py)"
+    tags="$tags$(echo "$i;$tagName;$clientCount;$focus;$cyan;$green;$bg;$sepInt;$leftSep;$rightSep" | $XDG_CONFIG_HOME/herbstluftwm/tags_panel.py)"
   done
   echo "$tags^fg()^bg()"
 }
 while true; do 
   echo "$(tags_block)$(time_block)"
-done | dzen2 -p -h 22 -bg $bg -fg $fg -fn "$font" -ta l
+done | dzen2 -p -h 22 -bg $black -fg $fg -fn "$font" -ta l

@@ -166,6 +166,7 @@ hc unlock
 
 # find the panel
 panel=~/.config/herbstluftwm/panel.sh
+$panel
 # [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
 # for monitor in $(hc list_monitors | cut -d: -f1) ; do
 #     # start it on each monitor
