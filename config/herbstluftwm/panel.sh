@@ -24,7 +24,7 @@ magenta="#bb9af7"
 cyan="#7dcfff"
 white="#a9b1d6"
 gray="#414868"
-font="Terminess Nerd Font:style=bold"
+font="Mononoki Nerd Font:style=bold"
 
 maxWidth=$(herbstclient get_attr monitors.0.geometry | awk -Fx '{print $1}')
 dateBlockWidth=390
