@@ -2,8 +2,6 @@
 # CONNECTIONS
 connInt=$(connmanctl technologies | grep "Connected = True" -B 3 | grep "Name" | awk -F" = " '{print $2}')
 
-
-
 # ICONS
 leftSep="$XDG_DATA_HOME/icons/bitmaps/22/left_cir.xbm"
 rightSep="$XDG_DATA_HOME/icons/bitmaps/22/right_cir.xbm"
@@ -30,23 +28,47 @@ font="Terminess Nerd Font:style=bold"
 
 maxWidth=$(herbstclient get_attr monitors.0.geometry | awk -Fx '{print $1}')
 dateBlockWidth=390
-tagsBlockWidth=410
+tagsBlockWidth=240
 # BLOCK
-time_block(){
-  align=$((($maxWidth - $tagsBlockWidth) / 2 - ($dateBlockWidth/ 2))) 
-  timeCmd=`date +'%a %d de %b %H:%M'`
-  echo "^p($align)^fg($red)^i($leftSep)^bg($bg)^fg($red)$timeCmd^fg($bg)^bg()^i($rightSep)^fg()^p()"
+time_block() {
+	align=$((($maxWidth - $tagsBlockWidth) / 2 - ($dateBlockWidth / 2)))
+	timeCmd=$(date +'%a %d de %b %H:%M')
+	echo "^p($align)^fg($red)^i($leftSep)^bg($bg)^fg($red)$timeCmd^fg($bg)^bg()^i($rightSep)^fg()^p()"
 }
-tags_block(){
-  lastTag=$(expr $(herbstclient attr tags.count ) - 1) 
-  for i in `seq 0 $lastTag` ;do
-    clientCount=`herbstclient attr tags.$i.client_count`
-    tagName=`herbstclient attr tags.$i.name`
-    focus=`herbstclient attr tags.focus.index`
-    tags="$tags$(echo "$i;$tagName;$clientCount;$focus;$cyan;$green;$bg;$sepInt;$leftSep;$rightSep" | $XDG_CONFIG_HOME/herbstluftwm/tags_panel.py)"
-  done
-  echo "$tags^fg()^bg()"
+tags_block() {
+	local lastTag=$(expr $(herbstclient attr tags.count) - 1)
+	for i in $(seq 0 $lastTag); do
+		local clientCount=$(herbstclient attr tags.$i.client_count)
+		local tagName=$(herbstclient attr tags.$i.name)
+		local focus=$(herbstclient attr tags.focus.index)
+		if [ $i -eq $focus ]; then
+			if [ $i -eq 0 ]; then
+				tags="^bg($black)^fg($green)^i($leftSep)^bg($green)^fg($bg)$tagName "
+			elif [ $i -eq $lastTag ]; then
+				tags="$tags^bg($green)^fg($bg) $tagName^fg($green)^bg($black)^i($rightSep)"
+			else
+				tags="$tags^bg($green)^fg($bg) $tagName "
+			fi
+		elif [ $clientCount -gt 0 ]; then
+			if [ $i -eq 0 ]; then
+				tags="^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($cyan)$tagName^fg($bg) "
+			elif [ $i -eq $lastTag ]; then
+				tags="$tags^bg($bg)^fg($cyan) $tagName^fg($bg)^bg($black)^i($rightSep)"
+			else
+				tags="$tags^bg($bg)^fg($cyan) $tagName^fg($bg) "
+			fi
+		else
+			if [ $i -eq 0 ]; then
+				tags="^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($green)$tagName^fg() "
+			elif [ $i -eq $lastTag ]; then
+				tags="$tags^bg($bg)^fg($green) $tagName^fg($bg)^bg($black)^i($rightSep)"
+			else
+				tags="$tags^bg($bg)^fg($green) $tagName^fg($bg) "
+			fi
+		fi
+	done
+	echo "$tags^fg()^bg()"
 }
-while true; do 
-  echo "$(tags_block)$(time_block)"
+while true; do
+	echo "$(tags_block)$(time_block)"
 done | dzen2 -p -h 22 -bg $black -fg $fg -fn "$font" -ta l
