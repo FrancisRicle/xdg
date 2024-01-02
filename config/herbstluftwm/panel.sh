@@ -36,7 +36,7 @@ tagsBlockWidth=240
 time_block() {
 	align=$((($maxWidth - $tagsBlockWidth) / 2 - ($dateBlockWidth / 2)))
 	timeCmd=$(date +'%a %d de %b %H:%M')
-	echo "^p($align)^fg($red)^i($leftSep)^bg($bg)^fg($red)$timeCmd^fg($bg)^bg()^i($rightSep)^fg()^p()"
+	echo "^p($align)^fg($red)^i($leftSep)^bg($bg)^fg($red) $timeCmd ^fg($bg)^bg()^i($rightSep)^fg()^p()"
 }
 tags_block() {
 	local lastTag=$(expr $(herbstclient attr tags.count) - 1)
