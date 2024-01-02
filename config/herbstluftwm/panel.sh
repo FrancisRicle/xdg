@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+hc() {
+	herbstclient "$@"
+}
 # CONNECTIONS
 connInt=$(connmanctl technologies | grep "Connected = True" -B 3 | grep "Name" | awk -F" = " '{print $2}')
 
@@ -51,19 +54,19 @@ tags_block() {
 			fi
 		elif [ $clientCount -gt 0 ]; then
 			if [ $i -eq 0 ]; then
-				tags="^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($cyan)$tagName^fg($bg) "
+				tags="^ca(1,herbstclient use_index $i)^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($cyan)$tagName^fg($bg)^ca() "
 			elif [ $i -eq $lastTag ]; then
-				tags="$tags^bg($bg)^fg($cyan) $tagName^fg($bg)^bg($black)^i($rightSep)"
+				tags="$tags^ca(1,herbstclient use_index $i)^bg($bg)^fg($cyan) $tagName^fg($bg)^bg($black)^i($rightSep)^ca()"
 			else
-				tags="$tags^bg($bg)^fg($cyan) $tagName^fg($bg) "
+				tags="$tags^ca(1,herbstclient use_index $i)^bg($bg)^fg($cyan) $tagName^fg($bg)^ca() "
 			fi
 		else
 			if [ $i -eq 0 ]; then
-				tags="^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($green)$tagName^fg() "
+				tags="^ca(1,herbstclient use_index $i)^bg($black)^fg($bg)^i($leftSep)^bg($bg)^fg($green)$tagName^fg()^ca() "
 			elif [ $i -eq $lastTag ]; then
-				tags="$tags^bg($bg)^fg($green) $tagName^fg($bg)^bg($black)^i($rightSep)"
+				tags="$tags^ca(1,herbstclient use_index $i)^bg($bg)^fg($green) $tagName^fg($bg)^bg($black)^i($rightSep)^ca()"
 			else
-				tags="$tags^bg($bg)^fg($green) $tagName^fg($bg) "
+				tags="$tags^ca(1,herbstclient use_index $i)^bg($bg)^fg($green) $tagName^fg($bg)^ca() "
 			fi
 		fi
 	done
