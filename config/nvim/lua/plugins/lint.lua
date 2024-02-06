@@ -59,7 +59,7 @@ local config = function(_, opts)
     group = vim.api.nvim_create_augroup("nvim-lint", { clear = true }),
     callback = M.debounce(100, M.lint),
   })
-end,
+end
 return {
   "mfussenegger/nvim-lint",
   event = "LazyFile",
