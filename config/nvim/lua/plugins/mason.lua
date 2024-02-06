@@ -1,4 +1,4 @@
-local config = config = function(_, opts)
+local config = function(_, opts)
   require("mason").setup(opts)
   local mr = require("mason-registry")
   mr:on("package:install:success", function()
