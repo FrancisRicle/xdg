@@ -14,11 +14,7 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {}
 modules("plugins", function(plugin) 
   table.insert(plugins, plugin)
-  if plugin.extensions ~= nil then
-    for ext in plugin.extensions do
-      table.insert(plugins, ext)
-    end
-  end
 end)
+local telescope_extensions = require("telescope.extensions")
+require("lazy").setup(join_tables(plugins, telescope_extensions))
 require("lsp.config")
-require("lazy").setup(plugins)

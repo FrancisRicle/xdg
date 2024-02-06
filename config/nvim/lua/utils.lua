@@ -1,6 +1,12 @@
 function get_current_file(t)
   return debug.getinfo(t, "S").source:sub(2)
 end
+function join_tables(tbl1, tbl2)
+  for _, v in pairs(tbl2) do
+    tbl1[#tbl1 + 1] = v
+  end
+  return tbl1
+end
 function walk_dir(path, fn)
   for file, file_type in vim.fs.dir(path) do
     local full_path_file = path .. "/" .. file
