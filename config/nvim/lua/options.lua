@@ -5,5 +5,6 @@ setOptions({
   autoident   = true,
   tabstop     =    2,
   softtabstop =    2,
-  shiftwidth  =    2
+  shiftwidth  =    2,
+  showtabline =    0
 })

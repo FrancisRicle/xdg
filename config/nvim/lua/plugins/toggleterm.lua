@@ -1,5 +1,10 @@
 local config = function()
-  require("toggleterm").setup()
+  require("toggleterm").setup({
+    direction = "tab",
+    winbar = {
+      enabled = false
+    }
+  })
 end
 return {
   "akinsho/toggleterm.nvim",

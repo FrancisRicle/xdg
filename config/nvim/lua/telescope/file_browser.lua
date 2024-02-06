@@ -1,9 +1,18 @@
 
+local config = function()
+  local telescope = require("telescope")
+  telescope.load_extension("file_browser")
+  telescope.setup({
+    extensions = {
+      file_browser = {
+        theme = "ivy",
+        hijack_netrw = true,
+      }
+    }
+  })
+end
 return {
   "nvim-telescope/telescope-file-browser.nvim",
-  name = "file-browser",
   dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
-  telescope_config = {
-    hijack_netrw = true,
-  }
+  ["config"] = config
 }

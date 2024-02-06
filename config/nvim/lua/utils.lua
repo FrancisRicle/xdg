@@ -33,11 +33,7 @@ function split(s)
   end
   return res
 end
-function setKeyMaps(keymaps)
-  for mode, value in pairs(keymaps) do
-    vim.keymap.set(split(mode), value[1], value[2])
-  end
-end
+keymap = vim.keymap
 function setOptions(opts)
   for key, value in pairs(opts) do
     vim.o[key] = value
