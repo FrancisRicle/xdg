@@ -38,6 +38,6 @@ return {
       "stylua",
       "prittierd"
     },
-  }
+  },
   ["config"] = config
 }
