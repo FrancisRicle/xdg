@@ -49,10 +49,7 @@ local lualine_config = {
     lualine_y = {},
     lualine_z = {}
   },
-  tabline = {
-    lualine_a = { buffers },
-    lualine_z = {'tabs'}
-  },
+  tabline = {},
   winbar = {},
   inactive_winbar = {},
   extensions = {}

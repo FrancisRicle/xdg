@@ -1,4 +1,4 @@
-local plugins = {}
+require("utils")
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
@@ -11,11 +11,14 @@ if not vim.loop.fs_stat(lazypath) then
   })
 end
 vim.opt.rtp:prepend(lazypath)
-for file in vim.fs.dir(vim.fn.stdpath("config") .. "/lua/plugins") do
-  if file ~= "init.lua" then
-    local plugin = require("plugins." .. string.sub(file, 1, -5))
-    table.insert(plugins, plugin)
+local plugins = {}
+modules("plugins", function(plugin) 
+  table.insert(plugins, plugin)
+  if plugin.extensions ~= nil then
+    for ext in plugin.extensions do
+      table.insert(plugins, ext)
+    end
   end
-end
-require("lsp.")
+end)
+require("lsp.config")
 require("lazy").setup(plugins)

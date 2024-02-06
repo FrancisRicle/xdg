@@ -1,2 +1,5 @@
-vim.cmd.colorscheme("tokyonight")
-vim.o.relativenumber = true
+require("utils")
+setOptions({ 
+  relativenumber = true,
+  number = true
+})
