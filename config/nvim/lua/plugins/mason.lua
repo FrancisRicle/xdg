@@ -23,7 +23,7 @@ local config = function(_, opts)
   else
     ensure_installed()
   end
-end,
+end
 return { 
   "williamboman/mason.nvim",
   opts = {
