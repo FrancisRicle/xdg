@@ -63,7 +63,7 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 		config = function()
 			require("mason-tool-installer").setup({
-				ensure_installed = join_tables(linters, formatters),
+				ensure_installed = JoinTables(linters, formatters),
 			})
 		end,
 	},
