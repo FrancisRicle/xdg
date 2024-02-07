@@ -3,6 +3,10 @@ local setup = {
 		file_browser = {
 			hijack_netrw = true,
 		},
+		tailiscope = {
+			register = "",
+			default = "base",
+		},
 	},
 }
 return {
@@ -12,6 +16,14 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		config = function()
 			require("telescope").setup(setup)
+		end,
+	},
+	{
+		"danielvolchek/tailiscope.nvim",
+		dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("telescope").load_extension("tailiscope")
+			vim.keymap.set("n", "<leader>fw", "<cmd>Telescope tailiscope<cr>")
 		end,
 	},
 	{
