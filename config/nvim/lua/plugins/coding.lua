@@ -85,7 +85,6 @@ return {
 		config = function(_, opts)
 			local lint = require("lint")
 			lint.linters_by_ft = opts.linters_by_ft
-			lint.linters = linters
 			local lint_autogroup = vim.api.nvim_create_augroup("lint", { clear = true })
 			vim.api.nvim_create_autocmd(opts.events, {
 				group = lint_autogroup,
