@@ -1,4 +1,3 @@
-require("utils")
 vim.keymap.set({ "n", "i" }, "<C-S>", "<cmd>wa<cr>")
 vim.keymap.set({ "n", "i", "t" }, "<C-S>", "<cmd>wa<cr>")
 vim.keymap.set({ "n", "i", "t" }, "<C-E>", "<cmd>Telescope file_browser<cr>")
