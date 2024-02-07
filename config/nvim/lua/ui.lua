@@ -1,5 +1,5 @@
 require("utils")
-setOptions({ 
-  relativenumber = true,
-  number = true
+SetOptions({
+	relativenumber = true,
+	number = true,
 })
