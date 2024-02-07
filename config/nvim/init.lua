@@ -1,5 +1,5 @@
+require("keybindings")
+require("lazycore")
 require("options")
 require("globals")
-require("keybindings")
 require("ui")
-require("plugins.config")
