@@ -32,14 +32,3 @@ function Split(s)
 	end
 	return res
 end
-keymap = vim.keymap
-function SetOptions(opts)
-	for key, value in pairs(opts) do
-		vim.o[key] = value
-	end
-end
-function SetGlobals(globals)
-	for key, value in pairs(globals) do
-		vim.g[key] = value
-	end
-end

@@ -1,7 +1,0 @@
-require("utils")
-SetGlobals({  mapleader = " " })
-keymap.set({"n", "i"}, "<C-S>", "<cmd>wa<cr>")
-keymap.set({"n", "i", "t"}, "<C-S>", "<cmd>wa<cr>")
-keymap.set({"n", "i", "t"}, "<C-E>", "<cmd>Telescope file_browser<cr>")
-keymap.set({"n", "i", "t"}, "<C-B>", "<cmd>Telescope buffers<cr>")
-keymap.set({"n", "i", "t"}, "<C-T>", "<cmd>Telescope toggleterm_manager<cr>")
