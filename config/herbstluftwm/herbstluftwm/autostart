@@ -19,7 +19,8 @@ Mod=Mod4 # Use the super key as the main modifier
 hc keybind $Mod-Shift-q quit
 hc keybind $Mod-Shift-r reload
 hc keybind $Mod-w close_and_remove
-hc keybind $Mod-Return spawn "${TERMINAL:-st}" # use your $TERMINAL with xterm as fallback
+hc keybind $Mod-Shift-w spawn $WALLPAPER
+hc keybind $Mod-Return spawn "${TERMINAL:-xterm}" # use your $TERMINAL with xterm as fallback
 hc keybind $Mod-b spawn $BROWSER
 hc keybind $Mod-m spawn rofi -show drun
 
@@ -161,11 +162,6 @@ hc set tree_style '╾│ ├└╼─┐'
 # unlock, just to be sure
 hc unlock
 
-# find the panel
 panel=~/.config/herbstluftwm/panel.sh
 $panel
-# [ -x "$panel" ] || panel=/etc/xdg/herbstluftwm/panel.sh
-# for monitor in $(hc list_monitors | cut -d: -f1) ; do
-#     # start it on each monitor
-#     "$panel" "$monitor" &
-# done
+
