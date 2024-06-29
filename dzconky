@@ -1,0 +1,2 @@
+ #!/bin/sh
+ conky -c $HOME/.config/conky/dzconky.conf | dzen2 -e - -h '24' &
